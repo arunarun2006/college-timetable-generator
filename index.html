@@ -1,1 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Timetable Generator</title>
 
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+            color: #172554;
+        }
+
+        .button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .info {
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🏫 College Timetable Generator</h1>
+    <p>Automatic Clash-Free Timetable System</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>📚 College Setup</h2>
+
+        <div class="info">
+            <p>Manage your college timetable information.</p>
+            <br>
+
+            <button class="button" onclick="startSetup()">
+                Start Setup
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>⚙️ System Rules</h2>
+
+        <div class="info">
+            <p>✓ Two sections per class</p>
+            <p>✓ Slot 1 → Section A</p>
+            <p>✓ Slot 2 → Section B</p>
+            <p>✓ Different timings for each slot</p>
+            <p>✓ Credit-based weekly hours</p>
+            <p>✓ 5 Computer Labs</p>
+            <p>✓ Teacher clash prevention</p>
+            <p>✓ Classroom clash prevention</p>
+            <p>✓ Free periods automatically identified</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    College Timetable Generator • Version 1.0
+</footer>
+
+<script>
+    function startSetup() {
+        alert("Setup module coming next! 🚀");
+    }
+</script>
+
+</body>
+</html>
