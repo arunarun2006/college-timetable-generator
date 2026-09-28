@@ -1,135 +1,1014 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Timetable Generator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<title>College Timetable Generator</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            color: #222;
-        }
+<style>
 
-        header {
-            background: #172554;
-            color: white;
-            padding: 25px 15px;
-            text-align: center;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        header h1 {
-            font-size: 25px;
-            margin-bottom: 8px;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
 
-        header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
+header {
+    background: #172554;
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+}
 
-        .container {
-            max-width: 900px;
-            margin: 25px auto;
-            padding: 0 15px;
-        }
+header h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+}
 
-        .card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        }
+header p {
+    margin: 0;
+    font-size: 15px;
+}
 
-        .card h2 {
-            margin-bottom: 15px;
-            color: #172554;
-        }
+.container {
+    max-width: 950px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
 
-        .button {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-        }
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
 
-        .button:hover {
-            background: #1d4ed8;
-        }
+.card h2 {
+    color: #172554;
+    margin-top: 0;
+}
 
-        .info {
-            line-height: 1.8;
-        }
+.card h3 {
+    color: #1e3a8a;
+    margin-top: 25px;
+}
 
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #666;
-            font-size: 13px;
-        }
-    </style>
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 14px;
+    margin-bottom: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.primary {
+    background: #2563eb;
+    color: white;
+}
+
+.primary:hover {
+    background: #1d4ed8;
+}
+
+.secondary {
+    background: #e2e8f0;
+    color: #172554;
+}
+
+.danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.add-button {
+    margin-top: 15px;
+}
+
+.period-row,
+.data-row {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    margin-top: 12px;
+    border-radius: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.slot-box {
+    border: 2px solid #dbeafe;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+.slot-title {
+    color: #1d4ed8;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.section-info {
+    background: #eff6ff;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.status {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: none;
+}
+
+.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+footer {
+    text-align: center;
+    color: #64748b;
+    padding: 25px;
+}
+
+.hidden {
+    display: none;
+}
+
+.small {
+    font-size: 13px;
+    color: #64748b;
+}
+
+@media (max-width: 650px) {
+
+    .grid,
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 23px;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
+
     <h1>🏫 College Timetable Generator</h1>
+
     <p>Automatic Clash-Free Timetable System</p>
+
 </header>
+
 
 <div class="container">
 
-    <div class="card">
-        <h2>📚 College Setup</h2>
 
-        <div class="info">
-            <p>Manage your college timetable information.</p>
-            <br>
+<!-- MAIN SETUP -->
 
-            <button class="button" onclick="startSetup()">
-                Start Setup
-            </button>
+<div class="card">
+
+    <h2>⚙️ College Setup</h2>
+
+    <p>
+        Enter the basic information required to generate your college timetable.
+    </p>
+
+    <label>College Name</label>
+
+    <input
+        type="text"
+        id="collegeName"
+        placeholder="Enter college name"
+    >
+
+    <label>Department</label>
+
+    <input
+        type="text"
+        id="department"
+        placeholder="Example: Electronics and Communication Engineering"
+    >
+
+    <label>Number of Working Days</label>
+
+    <input
+        type="number"
+        id="workingDays"
+        value="5"
+        min="1"
+        max="7"
+    >
+
+</div>
+
+
+<!-- SLOT CONFIGURATION -->
+
+<div class="card">
+
+    <h2>⏰ Slot Configuration</h2>
+
+    <p class="small">
+        Slot timings are entered by the user. The system will not assume fixed college timings.
+    </p>
+
+
+    <!-- SLOT 1 -->
+
+    <div class="slot-box">
+
+        <div class="slot-title">
+            Slot 1
         </div>
+
+        <div class="section-info">
+            <strong>Section A</strong> will automatically belong to Slot 1.
+        </div>
+
+        <label>Number of Periods</label>
+
+        <input
+            type="number"
+            id="slot1Count"
+            value="6"
+            min="1"
+            max="15"
+            onchange="createPeriods(1)"
+        >
+
+        <div id="slot1Periods"></div>
+
     </div>
 
-    <div class="card">
-        <h2>⚙️ System Rules</h2>
 
-        <div class="info">
-            <p>✓ Two sections per class</p>
-            <p>✓ Slot 1 → Section A</p>
-            <p>✓ Slot 2 → Section B</p>
-            <p>✓ Different timings for each slot</p>
-            <p>✓ Credit-based weekly hours</p>
-            <p>✓ 5 Computer Labs</p>
-            <p>✓ Teacher clash prevention</p>
-            <p>✓ Classroom clash prevention</p>
-            <p>✓ Free periods automatically identified</p>
+    <!-- SLOT 2 -->
+
+    <div class="slot-box">
+
+        <div class="slot-title">
+            Slot 2
         </div>
+
+        <div class="section-info">
+            <strong>Section B</strong> will automatically belong to Slot 2.
+        </div>
+
+        <label>Number of Periods</label>
+
+        <input
+            type="number"
+            id="slot2Count"
+            value="6"
+            min="1"
+            max="15"
+            onchange="createPeriods(2)"
+        >
+
+        <div id="slot2Periods"></div>
+
     </div>
 
 </div>
 
+
+<!-- CLASSES -->
+
+<div class="card">
+
+    <h2>🎓 Classes & Sections</h2>
+
+    <p class="small">
+        Each class can have exactly two sections.
+        Section A uses Slot 1 and Section B uses Slot 2.
+    </p>
+
+    <div id="classes"></div>
+
+    <button
+        class="secondary add-button"
+        onclick="addClass()"
+    >
+        + Add Class
+    </button>
+
+</div>
+
+
+<!-- TEACHERS -->
+
+<div class="card">
+
+    <h2>👨‍🏫 Teachers</h2>
+
+    <div id="teachers"></div>
+
+    <button
+        class="secondary add-button"
+        onclick="addTeacher()"
+    >
+        + Add Teacher
+    </button>
+
+</div>
+
+
+<!-- SUBJECTS -->
+
+<div class="card">
+
+    <h2>📚 Subjects</h2>
+
+    <p class="small">
+        Credits determine the required weekly hours.
+        TCP subjects also require 2 additional laboratory hours.
+    </p>
+
+    <div id="subjects"></div>
+
+    <button
+        class="secondary add-button"
+        onclick="addSubject()"
+    >
+        + Add Subject
+    </button>
+
+</div>
+
+
+<!-- RESOURCES -->
+
+<div class="card">
+
+    <h2>🏫 College Resources</h2>
+
+    <label>Number of Classrooms</label>
+
+    <input
+        type="number"
+        id="classrooms"
+        value="10"
+        min="1"
+    >
+
+    <label>Number of Computer Labs</label>
+
+    <input
+        type="number"
+        id="computerLabs"
+        value="5"
+        min="1"
+    >
+
+    <p class="small">
+        Computer labs are currently set to 5 by default.
+        You can change this if required.
+    </p>
+
+</div>
+
+
+<!-- SAVE -->
+
+<div class="card">
+
+    <h2>💾 Save Setup</h2>
+
+    <p>
+        Save the information entered above on this device.
+    </p>
+
+    <button
+        class="primary"
+        onclick="saveSetup()"
+    >
+        💾 Save Setup
+    </button>
+
+    <button
+        class="secondary"
+        onclick="loadSetup()"
+    >
+        ↻ Load Saved Setup
+    </button>
+
+    <button
+        class="danger"
+        onclick="clearSetup()"
+    >
+        Clear Setup
+    </button>
+
+    <div
+        id="status"
+        class="status"
+    ></div>
+
+</div>
+
+
+<!-- NEXT STEP -->
+
+<div class="card">
+
+    <h2>🚀 Timetable Generation</h2>
+
+    <p>
+        Once all college information is entered, the scheduling engine will
+        automatically arrange the subjects while checking teachers,
+        classrooms, labs, sections, slots and weekly hours.
+    </p>
+
+    <button
+        class="primary"
+        onclick="generateTimetable()"
+    >
+        🚀 Generate Timetable
+    </button>
+
+</div>
+
+
+</div>
+
+
 <footer>
-    College Timetable Generator • Version 1.0
+
+    College Timetable Generator • Version 2.0
+
 </footer>
 
+
 <script>
-    function startSetup() {
-        alert("Setup module coming next! 🚀");
+
+
+/* ================================
+   SLOT PERIODS
+================================ */
+
+
+function createPeriods(slot) {
+
+    const count =
+        Number(
+            document.getElementById(
+                "slot" + slot + "Count"
+            ).value
+        );
+
+    const container =
+        document.getElementById(
+            "slot" + slot + "Periods"
+        );
+
+    container.innerHTML = "";
+
+
+    for (let i = 1; i <= count; i++) {
+
+        const row =
+            document.createElement("div");
+
+        row.className = "period-row";
+
+        row.innerHTML = `
+
+            <strong>Period ${i}</strong>
+
+            <div class="grid">
+
+                <div>
+
+                    <label>Start Time</label>
+
+                    <input
+                        type="time"
+                        class="slot${slot}-start"
+                    >
+
+                </div>
+
+                <div>
+
+                    <label>End Time</label>
+
+                    <input
+                        type="time"
+                        class="slot${slot}-end"
+                    >
+
+                </div>
+
+            </div>
+
+        `;
+
+        container.appendChild(row);
+
     }
+
+}
+
+
+/* ================================
+   CLASSES
+================================ */
+
+
+function addClass() {
+
+    const container =
+        document.getElementById("classes");
+
+    const row =
+        document.createElement("div");
+
+    row.className = "data-row";
+
+    row.innerHTML = `
+
+        <div class="grid">
+
+            <div>
+
+                <label>Class Name</label>
+
+                <input
+                    type="text"
+                    class="class-name"
+                    placeholder="Example: ECE 2"
+                >
+
+            </div>
+
+            <div>
+
+                <label>Year / Semester</label>
+
+                <input
+                    type="text"
+                    class="class-semester"
+                    placeholder="Example: 2nd Year / Sem 3"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="section-info">
+
+            <strong>Section A</strong>
+            → Slot 1
+
+            <br>
+
+            <strong>Section B</strong>
+            → Slot 2
+
+        </div>
+
+        <br>
+
+        <button
+            class="danger"
+            onclick="this.parentElement.remove()"
+        >
+            Remove
+        </button>
+
+    `;
+
+    container.appendChild(row);
+
+}
+
+
+/* ================================
+   TEACHERS
+================================ */
+
+
+function addTeacher() {
+
+    const container =
+        document.getElementById("teachers");
+
+    const row =
+        document.createElement("div");
+
+    row.className = "data-row";
+
+    row.innerHTML = `
+
+        <div class="grid">
+
+            <div>
+
+                <label>Teacher Name</label>
+
+                <input
+                    type="text"
+                    class="teacher-name"
+                    placeholder="Example: Dr. Kumar"
+                >
+
+            </div>
+
+            <div>
+
+                <label>Department</label>
+
+                <input
+                    type="text"
+                    class="teacher-department"
+                    placeholder="Example: ECE"
+                >
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <button
+            class="danger"
+            onclick="this.parentElement.remove()"
+        >
+            Remove
+        </button>
+
+    `;
+
+    container.appendChild(row);
+
+}
+
+
+/* ================================
+   SUBJECTS
+================================ */
+
+
+function addSubject() {
+
+    const container =
+        document.getElementById("subjects");
+
+    const row =
+        document.createElement("div");
+
+    row.className = "data-row";
+
+    row.innerHTML = `
+
+        <label>Subject Name</label>
+
+        <input
+            type="text"
+            class="subject-name"
+            placeholder="Example: Digital Signal Processing"
+        >
+
+
+        <div class="grid">
+
+            <div>
+
+                <label>Credits</label>
+
+                <input
+                    type="number"
+                    class="subject-credit"
+                    min="1"
+                    max="10"
+                    placeholder="Example: 3"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>Subject Type</label>
+
+                <select class="subject-type">
+
+                    <option value="Theory">
+                        Theory
+                    </option>
+
+                    <option value="Lab">
+                        Lab
+                    </option>
+
+                    <option value="TCP">
+                        TCP
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div>
+
+                <label>Class</label>
+
+                <input
+                    type="text"
+                    class="subject-class"
+                    placeholder="Example: ECE 2"
+                >
+
+            </div>
+
+            <div>
+
+                <label>Teacher</label>
+
+                <input
+                    type="text"
+                    class="subject-teacher"
+                    placeholder="Teacher name"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="section-info">
+
+            Weekly theory hours =
+            <strong>Credit value</strong>
+
+            <br>
+
+            TCP =
+            <strong>Credit hours + 2 lab hours</strong>
+
+        </div>
+
+        <br>
+
+        <button
+            class="danger"
+            onclick="this.parentElement.remove()"
+        >
+            Remove
+        </button>
+
+    `;
+
+    container.appendChild(row);
+
+}
+
+
+/* ================================
+   SAVE SETUP
+================================ */
+
+
+function saveSetup() {
+
+    const data = {
+
+        collegeName:
+            document.getElementById(
+                "collegeName"
+            ).value,
+
+        department:
+            document.getElementById(
+                "department"
+            ).value,
+
+        workingDays:
+            document.getElementById(
+                "workingDays"
+            ).value,
+
+        classrooms:
+            document.getElementById(
+                "classrooms"
+            ).value,
+
+        computerLabs:
+            document.getElementById(
+                "computerLabs"
+            ).value
+
+    };
+
+
+    localStorage.setItem(
+        "collegeTimetableSetup",
+        JSON.stringify(data)
+    );
+
+
+    showStatus(
+        "Setup saved successfully on this device. ✅",
+        "success"
+    );
+
+}
+
+
+/* ================================
+   LOAD SETUP
+================================ */
+
+
+function loadSetup() {
+
+    const saved =
+        localStorage.getItem(
+            "collegeTimetableSetup"
+        );
+
+
+    if (!saved) {
+
+        showStatus(
+            "No saved setup found.",
+            "warning"
+        );
+
+        return;
+    }
+
+
+    const data =
+        JSON.parse(saved);
+
+
+    document.getElementById(
+        "collegeName"
+    ).value =
+        data.collegeName || "";
+
+
+    document.getElementById(
+        "department"
+    ).value =
+        data.department || "";
+
+
+    document.getElementById(
+        "workingDays"
+    ).value =
+        data.workingDays || 5;
+
+
+    document.getElementById(
+        "classrooms"
+    ).value =
+        data.classrooms || 10;
+
+
+    document.getElementById(
+        "computerLabs"
+    ).value =
+        data.computerLabs || 5;
+
+
+    showStatus(
+        "Saved setup loaded. ✅",
+        "success"
+    );
+
+}
+
+
+/* ================================
+   CLEAR
+================================ */
+
+
+function clearSetup() {
+
+    if (
+        confirm(
+            "Clear the saved setup?"
+        )
+    ) {
+
+        localStorage.removeItem(
+            "collegeTimetableSetup"
+        );
+
+        showStatus(
+            "Saved setup cleared.",
+            "warning"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   STATUS
+================================ */
+
+
+function showStatus(message, type) {
+
+    const box =
+        document.getElementById("status");
+
+    box.innerText = message;
+
+    box.className =
+        "status " + type;
+
+    box.style.display = "block";
+
+}
+
+
+/* ================================
+   GENERATOR PLACEHOLDER
+================================ */
+
+
+function generateTimetable() {
+
+    alert(
+        "The automatic scheduling engine is our next major module. 🚀"
+    );
+
+}
+
+
+/* ================================
+   INITIAL SETUP
+================================ */
+
+
+createPeriods(1);
+
+createPeriods(2);
+
+addClass();
+
+addTeacher();
+
+addSubject();
+
+
 </script>
 
 </body>
